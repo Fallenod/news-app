@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import cardReducer from '../features/card/cardSlice';
+import topicReducer from '../features/topic/topicSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    card: cardReducer,
+    topic: topicReducer,
   },
 });
