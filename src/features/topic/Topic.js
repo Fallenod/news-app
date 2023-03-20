@@ -23,11 +23,28 @@ const Topic = ({ name, url, data }) => {
       <Grid item>
         <TopicTitle to={url}>{name}</TopicTitle>
       </Grid>
-      <Grid item spacing={1} container>
-        <Grid item xs={4}>
+      <Grid sx={{ flexDirection: { xs: "column", md: "row" } }} item container>
+        <Grid
+          sx={{
+            paddingRight: { xs: 0, md: 1 },
+            paddingBottom: { xs: 1, md: 0 },
+          }}
+          item
+          xs={12}
+          md={4}
+        >
           <TopTopicCard data={firstCard} />
         </Grid>
-        <Grid item xs={8} spacing={1} direction="row" container alignItems="stretch">
+        <Grid
+          item
+          xs={12}
+          md={8}
+          lg={8}
+          spacing={1}
+          direction="row"
+          container
+          alignItems="stretch"
+        >
           {data.map((el, index) => {
             if (index > 0) {
               return <TopicCard key={index} data={el} />;

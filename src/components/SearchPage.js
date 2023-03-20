@@ -4,25 +4,22 @@ import { Skeleton, Unstable_Grid2 as Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-  changeCategory,
   fetchCard,
   selectCard,
   selectCardIsLoading,
   selectCardStatus,
 } from "../features/card/cardSlice";
 import Card from "./Card";
+import { useFetch } from "../hooks/useFetch";
 import LoaderGrid from "./LoaderGrid";
 
-const MainPage = ({ data }) => {
+const SearchPage = ({ data }) => {
   const books = useSelector(selectCard);
   const status = useSelector(selectCardStatus);
   const isLoading = useSelector(selectCardIsLoading);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(changeCategory(data.param));
-  }, [data.param, dispatch]);
-  useEffect(() => {
-    dispatch(fetchCard());
+    dispatch(fetchCard(data.param));
   }, [data.param, dispatch]);
 
   return (
@@ -53,4 +50,4 @@ const MainPage = ({ data }) => {
   );
 };
 
-export default MainPage;
+export default SearchPage;

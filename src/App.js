@@ -1,26 +1,25 @@
-import {Routes, Route} from "react-router-dom";
-import Skeleton from '@mui/material/Skeleton';
+import { Routes, Route } from "react-router-dom";
+import Skeleton from "@mui/material/Skeleton";
 
 import "./App.css";
-import MainLayout from "./MainLayout"
+import MainLayout from "./MainLayout";
 import MainPage from "./components/MainPage";
-import categoryProps from "./categoryProps"
+import categoryProps from "./categoryProps";
 import HomePage from "./components/HomePage";
+import SearchPage from "./components/SearchPage";
 
 function App() {
-    const data = "category=sports&";
-
-
-    return (
-        <Routes>
-            <Route path="/" element={<MainLayout/>}>
-                <Route index element={<HomePage/>}/>
-                {categoryProps?.map((item) => {
-                    return <Route path={item.url} element={<MainPage data={item}/>}/>;
-                })}
-            </Route>
-        </Routes>
-    );
+  return (
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<HomePage />} />
+        {categoryProps?.map((item) => {
+          return <Route path={item.url} element={<MainPage data={item} />} />;
+        })}
+        <Route path="/search" element={<SearchPage />} />
+      </Route>
+    </Routes>
+  );
 }
 
 export default App;

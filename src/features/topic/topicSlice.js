@@ -12,7 +12,7 @@ export const fetchTopic = createAsyncThunk(
     try {
       category = "category=" + category;
       const response = await fetch(
-        `https://newsapi.org/v2/top-headlines?country=ru&${category}&pageSize=5&apiKey=9576b06dbba14f2f94f52fbe6a0140ce`
+        `https://newsapi.org/v2/top-headlines?country=us&${category}&pageSize=5&apiKey=9576b06dbba14f2f94f52fbe6a0140ce`
       );
 
       if (!response.ok) {

@@ -70,7 +70,7 @@ function SearchBar() {
           //   onClick={toggleDrawer(false)}
           //   onKeyDown={toggleDrawer(false)}
         >
-          <p>{process.env.REACT_APP_API_KEY}</p>
+          
           <SearchInputContainer>
             <SearchInput
               id="search-bar"

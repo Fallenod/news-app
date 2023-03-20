@@ -9,37 +9,37 @@ import MemoryIcon from '@mui/icons-material/Memory';
     {
       "name": "Бизнес",
       "url": "business",
-      "param": "category=business",
+      "param": "business",
       "icon": <BusinessIcon/>,
     },
     {
       "name": "Медиа",
       "url": "entertainment",
-      "param": "category=entertainment",
+      "param": "entertainment",
       "icon": <LiveTvIcon/>,
     },
     {
       "name": "Здоровье",
       "url": "health",
-      "param": "category=health",
+      "param": "health",
       "icon": <FavoriteBorderIcon/>,
     },
     {
       "name": "Наука",
       "url": "science",
-      "param": "category=science",
+      "param": "science",
       "icon": <ScienceIcon/>,
     },
     {
       "name": "Спорт",
       "url": "sports",
-      "param": "category=sports",
+      "param": "sports",
       "icon": <SportsBasketballIcon/>,
     },
     {
       "name": "Технологии",
       "url": "technology",
-      "param": "category=technology",
+      "param": "technology",
       "icon": <MemoryIcon/>,
     },
   ]

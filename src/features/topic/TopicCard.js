@@ -53,7 +53,7 @@ const Content = styled(CardContent)`
 const TopicCard = (prop) => {
   const { data } = prop;
   return (
-    <Grid xs={6} item>
+    <Grid xs={12} sm ={6} item>
       <Paper
         elevation={0}
         sx={{

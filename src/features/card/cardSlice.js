@@ -4,15 +4,19 @@ const initialState = {
   data: [],
   status: "idle",
   isLoading: true,
+  country: "us",
+  category: "sport",
 };
 
 export const fetchCard = createAsyncThunk(
   "card/fetchCard",
-  async function (category, { rejectWithValue }) {
+  async function ( _,{ getState, rejectWithValue }) {
     try {
-      category = category ?? '';
+      const state = getState();
+      const country = state.card.country;
+      const category = state.card.category
       const response = await fetch(
-        `https://newsapi.org/v2/top-headlines?country=ru&${category}&apiKey=9576b06dbba14f2f94f52fbe6a0140ce`
+        `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=9576b06dbba14f2f94f52fbe6a0140ce`
       );
 
       if (!response.ok) {
@@ -27,27 +31,6 @@ export const fetchCard = createAsyncThunk(
     }
   }
 );
-// export const fetchFirstCardsByType = createAsyncThunk(
-//   "card/fetchFirstCardsByType",
-//   async function (category, { rejectWithValue }) {
-//     try {
-//       category = category ?? '';
-//       const response = await fetch(
-//         `https://newsapi.org/v2/top-headlines?country=ru&${category}apiKey=3aa3b50262034fe5b7ab7b8f4fea1a28`
-//       );
-
-//       if (!response.ok) {
-//         throw new Error("Server Error!");
-//       }
-
-//       const data = await response.json();
-
-//       return data;
-//     } catch (error) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
 export const cardSlice = createSlice({
   name: "card",
   initialState,
@@ -55,6 +38,10 @@ export const cardSlice = createSlice({
     reset: (state) => {
       state.data = [];
       state.status = "reset";
+    },
+    changeCategory: (state, action) => {
+      state.category = action.payload;
+      state.isLoading = true;
     },
   },
   extraReducers: (builder) => {
@@ -66,13 +53,13 @@ export const cardSlice = createSlice({
       .addCase(fetchCard.fulfilled, (state, action) => {
         state.status = "idle";
         state.isLoading = true;
-        console.log(action.payload);
         state.data = action.payload.articles;
       });
   },
 });
 
 export const { reset } = cardSlice.actions;
+export const { changeCategory } = cardSlice.actions;
 
 export const selectCard = (state) => state.card.data;
 export const selectCardStatus = (state) => state.card.status;
