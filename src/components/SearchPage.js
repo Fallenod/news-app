@@ -1,26 +1,31 @@
 import { useEffect } from "react";
 
-import { Skeleton, Unstable_Grid2 as Grid } from "@mui/material";
+import { Unstable_Grid2 as Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  fetchCard,
-  selectCard,
-  selectCardIsLoading,
-  selectCardStatus,
-} from "../features/card/cardSlice";
 import Card from "./Card";
-import { useFetch } from "../hooks/useFetch";
 import LoaderGrid from "./LoaderGrid";
+import {
+  changeValue,
+  fetchSearch,
+  selectSearch,
+  selectSearchIsLoading,
+  selectSearchValue,
+} from "../features/search/searchSlice";
+import { useParams } from "react-router-dom";
 
-const SearchPage = ({ data }) => {
-  const books = useSelector(selectCard);
-  const status = useSelector(selectCardStatus);
-  const isLoading = useSelector(selectCardIsLoading);
+const SearchPage = () => {
+  const cards = useSelector(selectSearch);
+  const isLoading = useSelector(selectSearchIsLoading);
+  const searchValue = useSelector(selectSearchValue);
   const dispatch = useDispatch();
+  let { value } = useParams();
   useEffect(() => {
-    dispatch(fetchCard(data.param));
-  }, [data.param, dispatch]);
+    dispatch(changeValue(value));
+  }, [cards, dispatch]);
+  useEffect(() => {
+    dispatch(fetchSearch());
+  }, [searchValue, dispatch]);
 
   return (
     <>
@@ -39,7 +44,7 @@ const SearchPage = ({ data }) => {
         }}
       >
         {isLoading ? (
-          books?.map((el, index) => {
+          cards?.map((el, index) => {
             return <Card key={index} data={el} />;
           })
         ) : (

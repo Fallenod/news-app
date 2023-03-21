@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { Skeleton, Unstable_Grid2 as Grid } from "@mui/material";
+import { Unstable_Grid2 as Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -8,14 +8,12 @@ import {
   fetchCard,
   selectCard,
   selectCardIsLoading,
-  selectCardStatus,
 } from "../features/card/cardSlice";
 import Card from "./Card";
 import LoaderGrid from "./LoaderGrid";
 
 const MainPage = ({ data }) => {
-  const books = useSelector(selectCard);
-  const status = useSelector(selectCardStatus);
+  const cards = useSelector(selectCard);
   const isLoading = useSelector(selectCardIsLoading);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -42,7 +40,7 @@ const MainPage = ({ data }) => {
         }}
       >
         {isLoading ? (
-          books?.map((el, index) => {
+          cards?.map((el, index) => {
             return <Card key={index} data={el} />;
           })
         ) : (

@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import Skeleton from "@mui/material/Skeleton";
 
 import "./App.css";
 import MainLayout from "./MainLayout";
@@ -16,7 +15,7 @@ function App() {
         {categoryProps?.map((item) => {
           return <Route path={item.url} element={<MainPage data={item} />} />;
         })}
-        <Route path="/search" element={<SearchPage />} />
+        <Route path="/search/:value" element={<SearchPage />} />
       </Route>
     </Routes>
   );

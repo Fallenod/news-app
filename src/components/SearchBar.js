@@ -2,10 +2,8 @@ import { useState } from "react";
 
 import SearchIcon from "@mui/icons-material/Search";
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Drawer from "@mui/material/SwipeableDrawer";
-import TextField from "@mui/material/TextField";
 import InputBase from "@mui/material/InputBase";
 import styled from "@emotion/styled";
 
@@ -35,7 +33,7 @@ const SearchInputContainer = styled.div`
 const SearchButton = styled(IconButton)`
   position: absolute;
   top: 50%;
-  transform: translate(50%,-50%);
+  transform: translate(50%, -50%);
   right: 2rem;
 `;
 
@@ -70,7 +68,6 @@ function SearchBar() {
           //   onClick={toggleDrawer(false)}
           //   onKeyDown={toggleDrawer(false)}
         >
-          
           <SearchInputContainer>
             <SearchInput
               id="search-bar"
