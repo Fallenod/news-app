@@ -65,10 +65,14 @@ const Card = (prop) => {
           backgroundColor: "grey",
           borderRadius: "12px",
           boxSizing: "border-box",
-          // height: "380px",
         }}
       >
-        <Link sx={{ display: "flex", height: "100%" }} href={data.url} underline="none" target="_blank">
+        <Link
+          sx={{ display: "flex", height: "100%" }}
+          href={data.url}
+          underline="none"
+          target="_blank"
+        >
           <Content>
             <CardTitle gutterBottom variant="h6" component="div">
               {data.title}
@@ -95,7 +99,9 @@ const Card = (prop) => {
                 alt="Natacha"
                 src={`https://${data.source.name}/favicon.ico`}
               />
-              <div style={{ fontSize: "14px", color: "#8F9FA7" }}>{data.source.name}</div>
+              <div style={{ fontSize: "14px", color: "#8F9FA7" }}>
+                {data.source.name}
+              </div>
               <div style={{ fontSize: "14px", color: "#8F9FA7" }}>{`${new Date(
                 data.publishedAt
               ).getHours()}:${new Date(data.publishedAt).getMinutes()}`}</div>

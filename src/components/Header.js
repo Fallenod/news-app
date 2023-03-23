@@ -25,16 +25,7 @@ const Header = () => {
     <AppBar color="primary" position="static" elevation={0}>
       <Container maxWidth="lg">
         <Toolbar disableGutters sx={{ display: "flex" }}>
-          {/* <IconButton size="small" aria-label="logo" color="inherit">
-            <div style={{ width: "2.5rem" }}>
-              <img
-                style={{ width: "100%", height: "100%" }}
-                alt="logo"
-                src={logo}
-              />
-            </div>
-          </IconButton> */}
-          <BurgerMenu/>
+          <BurgerMenu />
           <Box
             sx={{
               display: { xs: "none", md: "flex" },

@@ -15,7 +15,7 @@ function App() {
         {categoryProps?.map((item) => {
           return <Route path={item.url} element={<MainPage data={item} />} />;
         })}
-        <Route path="/search/:value" element={<SearchPage />} />
+        <Route path="/search" element={<SearchPage />} />
       </Route>
     </Routes>
   );

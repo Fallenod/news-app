@@ -4,7 +4,9 @@ const initialState = {
   data: [],
   value: "",
   page: 1,
-  pageSize: 30,
+  pageSize: 18,
+  total: 0,
+  totalPage: 0,
   status: "idle",
   isLoading: true,
 };
@@ -18,7 +20,7 @@ export const fetchSearch = createAsyncThunk(
       const page = state.search.page;
       const pageSize = state.search.pageSize;
       const response = await fetch(
-        `https://newsapi.org/v2/everything?q=${value}&page=${page}&pageSize=${pageSize}&apiKey=9576b06dbba14f2f94f52fbe6a0140ce`
+        `https://newsapi.org/v2/everything?q=${value}&page=${page}&pageSize=${pageSize}&apiKey=3aa3b50262034fe5b7ab7b8f4fea1a28`
       );
 
       if (!response.ok) {
@@ -26,7 +28,7 @@ export const fetchSearch = createAsyncThunk(
       }
 
       const data = await response.json();
-
+      console.log(data);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -46,7 +48,7 @@ export const searchSlice = createSlice({
       state.isLoading = true;
     },
     changePage: (state, action) => {
-      state.page = action.payload;
+      state.page = +action.payload;
       state.isLoading = true;
     },
     changePageSize: (state, action) => {
@@ -64,6 +66,8 @@ export const searchSlice = createSlice({
         state.status = "idle";
         state.isLoading = true;
         state.data = action.payload.articles;
+        state.total = action.payload.totalResults;
+        state.totalPage = Math.ceil(state.total / state.pageSize);
       });
   },
 });
@@ -79,5 +83,7 @@ export const selectSearchIsLoading = (state) => state.search.isLoading;
 export const selectSearchValue = (state) => state.search.value;
 export const selectSearchPage = (state) => state.search.page;
 export const selectSearchPageSize = (state) => state.search.pageSize;
+export const selectSearchTotal = (state) => state.search.total;
+export const selectSearchTotalPage = (state) => state.search.totalPage;
 
 export default searchSlice.reducer;

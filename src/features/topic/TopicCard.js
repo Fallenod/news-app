@@ -21,8 +21,8 @@ const CardTitle = styled(Typography)`
   display: -webkit-box;
   font-weight: 700;
   line-height: 1;
-  height: 100%; 
-  -webkit-line-clamp: 2;
+  width: 100%;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   &:hover {
     color: red;
@@ -34,7 +34,6 @@ const CardSubTitle = styled(Typography)`
   display: -webkit-box;
   font-weight: 300;
   line-height: 1;
-  min-height: 2rem;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 `;
@@ -55,11 +54,11 @@ const TopicCard = (prop) => {
   return (
     <Grid xs={12} sm ={6} item>
       <Paper
-        elevation={0}
         sx={{
           backgroundColor: "grey",
           borderRadius: "12px",
-          minHeight: "100%",
+          height: "100%",
+          boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
         }}
       >
         <Link
@@ -71,9 +70,12 @@ const TopicCard = (prop) => {
           <Content>
             <Grid container direction="row">
               <Grid item xs={8}>
-                <CardTitle gutterBottom variant="subtitle1" component="h2">
+                <CardTitle gutterBottom variant="subtitle1" component="div">
                   {data.title}
                 </CardTitle>
+                <CardSubTitle gutterBottom variant="subtitle2" component="div">
+                  {data.title}
+                </CardSubTitle>
               </Grid>
               <Grid item xs={4}>
                 <CardMedia

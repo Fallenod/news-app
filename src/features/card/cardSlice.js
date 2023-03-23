@@ -16,7 +16,7 @@ export const fetchCard = createAsyncThunk(
       const country = state.card.country;
       const category = state.card.category
       const response = await fetch(
-        `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=9576b06dbba14f2f94f52fbe6a0140ce`
+        `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=3aa3b50262034fe5b7ab7b8f4fea1a28`
       );
 
       if (!response.ok) {

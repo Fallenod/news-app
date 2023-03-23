@@ -1,5 +1,5 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
+import ReactDOM from "react-dom/client";
 
 import { Provider } from "react-redux";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -10,8 +10,6 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import { CssBaseline } from "@mui/material";
 
-const container = document.getElementById("root");
-const root = createRoot(container);
 const theme = createTheme({
   typography: {
     fontFamily: "Comfortaa",
@@ -35,15 +33,17 @@ const theme = createTheme({
   },
 });
 
-root.render(
-  <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ThemeProvider>
-  </Provider>
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ThemeProvider>
+    </Provider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

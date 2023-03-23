@@ -20,7 +20,7 @@ const Topic = ({ name, url, data }) => {
   const firstCard = data[0];
   return (
     <Grid container spacing={0} xs={12}>
-      <Grid item>
+      <Grid sx={{paddingBottom: "2rem"}} item>
         <TopicTitle to={url}>{name}</TopicTitle>
       </Grid>
       <Grid sx={{ flexDirection: { xs: "column", md: "row" } }} item container>
