@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -10,13 +10,15 @@ import Toolbar from "@mui/material/Toolbar";
 
 import categoryProps from "../categoryProps";
 import SearchBar from "./SearchBar";
-import logo from "../content/logo.png";
 import BurgerMenu from "./BurgerMenu";
 import { Link } from "react-router-dom";
+import { Badge } from "@mui/material";
+import { useSelector } from "react-redux";
+import { selectBookmark } from "../features/bookmark/bookmarkSlice";
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
-
+  const countBookmarks = useSelector(selectBookmark);
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
@@ -53,7 +55,13 @@ const Header = () => {
               </Button>
             ))}
           </Box>
-
+          <IconButton component={Link}
+                to={'/bookmarks'}
+                key={'bookmarks'} color="inherit" aria-label="bookmarks">
+            <Badge badgeContent={countBookmarks} color="secondary">
+              <BookmarksIcon />
+            </Badge>
+          </IconButton>
           <SearchBar />
         </Toolbar>
       </Container>

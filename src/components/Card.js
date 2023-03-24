@@ -4,18 +4,20 @@ import {
   Unstable_Grid2 as Grid,
   CardMedia,
   CardContent,
-  CardActions,
   Typography,
   Link,
   Stack,
   Paper,
   Avatar,
-  Chip,
-  Button,
   IconButton,
 } from "@mui/material";
-import BookmarkAdd from "@mui/icons-material/BookmarkAddOutlined";
+import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import { styled } from "@mui/system";
+import { useDispatch } from "react-redux";
+import {
+  addBookmark,
+  removeBookmark,
+} from "../features/bookmark/bookmarkSlice";
 
 const placeholderImg =
   "https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png";
@@ -55,8 +57,11 @@ const Content = styled(CardContent)`
   }
 `;
 
-const Card = (prop) => {
-  const { data } = prop;
+const Card = ({ data }) => {
+  const dispatch = useDispatch();
+  const handleClick = (e) => {
+    console.log(e);
+  };
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Paper
@@ -69,9 +74,10 @@ const Card = (prop) => {
       >
         <Link
           sx={{ display: "flex", height: "100%" }}
-          href={data.url}
+          // href={data.url}
           underline="none"
           target="_blank"
+          onClick={(e) => handleClick(e)}
         >
           <Content>
             <CardTitle gutterBottom variant="h6" component="div">
@@ -105,6 +111,23 @@ const Card = (prop) => {
               <div style={{ fontSize: "14px", color: "#8F9FA7" }}>{`${new Date(
                 data.publishedAt
               ).getHours()}:${new Date(data.publishedAt).getMinutes()}`}</div>
+              <IconButton
+                onClick={() => dispatch(addBookmark(data))}
+                color="inherit"
+              >
+                <BookmarkAddIcon color="disabled" />
+              </IconButton>
+              <IconButton
+                onClick={() => dispatch(removeBookmark(data))}
+                sx={{
+                  "&:hover": {
+                    color: "red",
+                  },
+                }}
+                color="error"
+              >
+                <BookmarkAddIcon />
+              </IconButton>
             </Stack>
           </Content>
         </Link>
