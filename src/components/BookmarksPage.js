@@ -27,11 +27,12 @@ const BookmarksPage = () => {
         // xs={10}
         sx={{
           display: "flex",
-          alignItems: "center",
+          alignItems: "start",
           marginTop: "20px",
           backgroundColor: "#F3F3F2",
           borderRadius: "20px",
           p: "20px",
+          minHeight: "100vh",
         }}
       >
         {isLoading ? (

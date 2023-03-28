@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { Badge } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectBookmark } from "../features/bookmark/bookmarkSlice";
+import LoginBar from "./LoginBar";
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -63,6 +64,7 @@ const Header = () => {
             </Badge>
           </IconButton>
           <SearchBar />
+          <LoginBar/>
         </Toolbar>
       </Container>
     </AppBar>

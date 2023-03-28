@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Unstable_Grid2 as Grid,
@@ -10,10 +10,11 @@ import {
   Paper,
   Avatar,
   IconButton,
+  Checkbox,
 } from "@mui/material";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import { styled } from "@mui/system";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addBookmark,
   removeBookmark,
@@ -59,8 +60,16 @@ const Content = styled(CardContent)`
 
 const Card = ({ data }) => {
   const dispatch = useDispatch();
-  const handleClick = (e) => {
-    console.log(e);
+  const [checked, setChecked] = useState(false);
+
+  const handleClick = (e) => {};
+  const handleChange = (e) => {
+    if (!checked) {
+      dispatch(addBookmark(data));
+    } else {
+      dispatch(removeBookmark(data));
+    }
+    setChecked(!checked);
   };
   return (
     <Grid item xs={12} sm={6} md={4}>
@@ -111,23 +120,12 @@ const Card = ({ data }) => {
               <div style={{ fontSize: "14px", color: "#8F9FA7" }}>{`${new Date(
                 data.publishedAt
               ).getHours()}:${new Date(data.publishedAt).getMinutes()}`}</div>
-              <IconButton
-                onClick={() => dispatch(addBookmark(data))}
-                color="inherit"
-              >
-                <BookmarkAddIcon color="disabled" />
-              </IconButton>
-              <IconButton
-                onClick={() => dispatch(removeBookmark(data))}
-                sx={{
-                  "&:hover": {
-                    color: "red",
-                  },
-                }}
-                color="error"
-              >
-                <BookmarkAddIcon />
-              </IconButton>
+              <Checkbox
+                icon={<BookmarkAddIcon color="disabled" />}
+                checkedIcon={<BookmarkAddIcon color="error" />}
+                checked={checked}
+                onChange={handleChange}
+              />
             </Stack>
           </Content>
         </Link>

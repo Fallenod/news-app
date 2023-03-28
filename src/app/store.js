@@ -3,6 +3,7 @@ import cardReducer from "../features/card/cardSlice";
 import topicReducer from "../features/topic/topicSlice";
 import searchReducer from "../features/search/searchSlice";
 import bookmarkReducer from "../features/bookmark/bookmarkSlice";
+import userReducer from "../features/user/userSlice";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   topic: topicReducer,
   search: searchReducer,
   bookmark: bookmarkReducer,
+  user: userReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -22,9 +22,10 @@ export const fetchCard = createAsyncThunk(
       if (!response.ok) {
         throw new Error("Server Error!");
       }
-
+      
       const data = await response.json();
-
+      let trtd = data[0]
+      console.log(trtd)
       return data;
     } catch (error) {
       return rejectWithValue(error.message);

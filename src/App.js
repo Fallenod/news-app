@@ -9,6 +9,13 @@ import SearchPage from "./components/SearchPage";
 import BookmarksPage from "./components/BookmarksPage";
 
 function App() {
+  // const [user, setUser] = useState(null);
+
+  // useEffect(() => {
+  //   firebase.auth().onAuthStateChanged((user) => {
+  //     setUser(user);
+  //   });
+  // }, []);
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>

@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   data: [],
   count: 0,
+  hasInBookmark: false,
   status: "idle",
   isLoading: true,
 };
@@ -26,21 +27,35 @@ export const bookmarkSlice = createSlice({
       }
     },
     removeBookmark: (state, action) => {
-        const newfilteredData = state.data.filter((item) => item.title !== action.payload.title);
-        state.data = newfilteredData;
-        state.count = newfilteredData.length;
+      const newfilteredData = state.data.filter(
+        (item) => item.title !== action.payload.title
+      );
+      state.data = newfilteredData;
+      state.count = newfilteredData.length;
     },
+    updateAllBookmarks: (state, action) => {
+      state.data = action.payload;
+      state.count = action.payload.length;
+    },
+    // hasBookmark: (state, action) => {
+    //   const itemInCart = state.data.find(
+    //     (item) => item.title == action.payload.title
+    //   );
+    //   if (!itemInCart) {
+    //     state.hasInBookmark = true;
+    //   }
+    // },
   },
 });
 
 export const { reset } = bookmarkSlice.actions;
 export const { addBookmark } = bookmarkSlice.actions;
 export const { removeBookmark } = bookmarkSlice.actions;
+export const { updateAllBookmarks } = bookmarkSlice.actions;
+// export const { hasBookmark } = bookmarkSlice.actions;
 
 export const selectBookmark = (state) => state.bookmark.count;
 export const selectBookmarkData = (state) => state.bookmark.data;
 export const selectBookmarkIsLoading = (state) => state.bookmark.isLoading;
-
-
 
 export default bookmarkSlice.reducer;
