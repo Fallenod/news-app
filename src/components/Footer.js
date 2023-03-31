@@ -8,26 +8,26 @@ import {
   TextField,
   Typography,
   Unstable_Grid2 as Grid,
-} from "@mui/material";
-import logo from "../content/logo.png";
-import categoryProps from "../categoryProps";
+} from '@mui/material';
+import logo from '../content/logo.png';
+import categoryProps from '../categoryProps';
 
 const styles = {
   rootBox: {
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   footerNav: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    marginRight: "auto",
-    marginLeft: "12px",
-    marginBottom: "0",
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginRight: 'auto',
+    marginLeft: '12px',
+    marginBottom: '0',
   },
   footerLink: {
-    color: "white",
-    marginLeft: "12px",
-    marginRight: "12px",
+    color: 'white',
+    marginLeft: '12px',
+    marginRight: '12px',
   },
 };
 
@@ -43,9 +43,9 @@ function Footer() {
           sx={styles.rootBox}
         >
           <IconButton size="small" aria-label="logo" color="inherit">
-            <div style={{ width: "2.5rem" }}>
+            <div style={{ width: '2.5rem' }}>
               <img
-                style={{ width: "100%", height: "100%" }}
+                style={{ width: '100%', height: '100%' }}
                 alt="logo"
                 src={logo}
               />
@@ -58,12 +58,12 @@ function Footer() {
                 key={page.url}
                 sx={{
                   my: 2,
-                  color: "white",
-                  textAlign: "center",
-                  fontSize: "1rem",
-                  display: "block",
-                  "&:hover": {
-                    color: "red",
+                  color: 'white',
+                  textAlign: 'center',
+                  fontSize: '1rem',
+                  display: 'block',
+                  '&:hover': {
+                    color: 'red',
                   },
                 }}
               >

@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import MenuIcon from "@mui/icons-material/Menu";
-import InboxIcon from "@mui/icons-material/Inbox";
-import MailIcon from "@mui/icons-material/Mail";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import Drawer from "@mui/material/SwipeableDrawer";
-import InputBase from "@mui/material/InputBase";
-import styled from "@emotion/styled";
+import MenuIcon from '@mui/icons-material/Menu';
+import InboxIcon from '@mui/icons-material/Inbox';
+import MailIcon from '@mui/icons-material/Mail';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Drawer from '@mui/material/SwipeableDrawer';
+import InputBase from '@mui/material/InputBase';
+import styled from '@emotion/styled';
 import {
   Divider,
   List,
@@ -15,10 +15,10 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-} from "@mui/material";
-import categoryProps from "../categoryProps";
-import { Link } from "react-router-dom";
-import WindowIcon from "@mui/icons-material/Window";
+} from '@mui/material';
+import { Link } from 'react-router-dom';
+import WindowIcon from '@mui/icons-material/Window';
+import categoryProps from '../categoryProps';
 
 const SearchInput = styled(InputBase)`
   border-radius: 2rem;
@@ -61,7 +61,12 @@ function BurgerMenu() {
         onClick={toggleDrawer(true)}
         size="large"
         aria-label="search"
-        color="inherit"
+        sx={{
+          color: 'white',
+          '&:hover': {
+            color: '#FFD76C',
+          },
+        }}
       >
         <MenuIcon />
       </IconButton>
@@ -76,7 +81,13 @@ function BurgerMenu() {
           onClick={toggleDrawer(false)}
         >
           <List>
-            <ListItem component={Link} to="/" key="main" disablePadding sx={{all: "unset"}}>
+            <ListItem
+              component={Link}
+              to="/"
+              key="main"
+              disablePadding
+              sx={{ all: 'unset' }}
+            >
               <ListItemButton>
                 <ListItemIcon>
                   <WindowIcon />
@@ -91,7 +102,12 @@ function BurgerMenu() {
                 to={page.url}
                 key={page.name}
                 disablePadding
-                sx={{all: "unset"}}
+                sx={{
+                  all: 'unset',
+                  '&:hover': {
+                    color: `${categoryProps[index].color}`,
+                  },
+                }}
               >
                 <ListItemButton>
                   <ListItemIcon>{page.icon}</ListItemIcon>

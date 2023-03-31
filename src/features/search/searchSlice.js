@@ -1,30 +1,30 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: [],
-  value: "",
+  value: '',
   page: 1,
   pageSize: 18,
   total: 0,
   totalPage: 0,
-  status: "idle",
+  status: 'idle',
   isLoading: true,
 };
 
 export const fetchSearch = createAsyncThunk(
-  "search/fetchSearch",
-  async function (_, { getState, rejectWithValue }) {
+  'search/fetchSearch',
+  async (_, { getState, rejectWithValue }) => {
     try {
       const state = getState();
-      const value = state.search.value;
-      const page = state.search.page;
-      const pageSize = state.search.pageSize;
+      const { value } = state.search;
+      const { page } = state.search;
+      const { pageSize } = state.search;
       const response = await fetch(
-        `https://newsapi.org/v2/everything?q=${value}&page=${page}&pageSize=${pageSize}&apiKey=3aa3b50262034fe5b7ab7b8f4fea1a28`
+        `https://newsapi.org/v2/everything?q=${value}&page=${page}&pageSize=${pageSize}&apiKey=3aa3b50262034fe5b7ab7b8f4fea1a28`,
       );
 
       if (!response.ok) {
-        throw new Error("Server Error!");
+        throw new Error('Server Error!');
       }
 
       const data = await response.json();
@@ -33,15 +33,15 @@ export const fetchSearch = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 export const searchSlice = createSlice({
-  name: "search",
+  name: 'search',
   initialState,
   reducers: {
     reset: (state) => {
       state.data = [];
-      state.status = "reset";
+      state.status = 'reset';
     },
     changeValue: (state, action) => {
       state.value = action.payload;
@@ -59,11 +59,11 @@ export const searchSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchSearch.pending, (state) => {
-        state.status = "loading";
+        state.status = 'loading';
         state.isLoading = false;
       })
       .addCase(fetchSearch.fulfilled, (state, action) => {
-        state.status = "idle";
+        state.status = 'idle';
         state.isLoading = true;
         state.data = action.payload.articles;
         state.total = action.payload.totalResults;

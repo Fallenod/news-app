@@ -1,24 +1,24 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: [],
   count: 0,
   hasInBookmark: false,
-  status: "idle",
+  status: 'idle',
   isLoading: true,
 };
 
 export const bookmarkSlice = createSlice({
-  name: "bookmark",
+  name: 'bookmark',
   initialState,
   reducers: {
     reset: (state) => {
       state.data = [];
-      state.status = "reset";
+      state.status = 'reset';
     },
     addBookmark: (state, action) => {
       const itemInCart = state.data.find(
-        (item) => item.title == action.payload.title
+        (item) => item.title == action.payload.title,
       );
       if (!itemInCart) {
         state.data.push(action.payload);
@@ -28,7 +28,7 @@ export const bookmarkSlice = createSlice({
     },
     removeBookmark: (state, action) => {
       const newfilteredData = state.data.filter(
-        (item) => item.title !== action.payload.title
+        (item) => item.title !== action.payload.title,
       );
       state.data = newfilteredData;
       state.count = newfilteredData.length;

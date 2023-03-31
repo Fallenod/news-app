@@ -1,22 +1,22 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: [],
-  status: "idle",
+  status: 'idle',
   isLoading: true,
 };
 
 export const fetchTopic = createAsyncThunk(
-  "topic/fetchTopic",
-  async function (category, { rejectWithValue }) {
+  'topic/fetchTopic',
+  async (category, { rejectWithValue }) => {
     try {
-      category = "category=" + category;
+      category = `category=${category}`;
       const response = await fetch(
-        `https://newsapi.org/v2/top-headlines?country=us&${category}&pageSize=5&apiKey=9576b06dbba14f2f94f52fbe6a0140ce`
+        `https://newsapi.org/v2/top-headlines?country=us&${category}&pageSize=5&apiKey=9576b06dbba14f2f94f52fbe6a0140ce`,
       );
 
       if (!response.ok) {
-        throw new Error("Server Error!");
+        throw new Error('Server Error!');
       }
 
       const data = await response.json();
@@ -24,25 +24,25 @@ export const fetchTopic = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 export const topicSlice = createSlice({
-  name: "topic",
+  name: 'topic',
   initialState,
   reducers: {
     reset: (state) => {
       state.data = [];
-      state.status = "reset";
+      state.status = 'reset';
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTopic.pending, (state) => {
-        state.status = "loading";
+        state.status = 'loading';
         state.isLoading = false;
       })
       .addCase(fetchTopic.fulfilled, (state, action) => {
-        state.status = "idle";
+        state.status = 'idle';
         state.isLoading = true;
         state.data = action.payload.articles;
       });

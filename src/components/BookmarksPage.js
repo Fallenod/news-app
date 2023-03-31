@@ -1,50 +1,39 @@
-import { useEffect } from "react";
+import { Typography, Unstable_Grid2 as Grid } from '@mui/material';
+import { useSelector } from 'react-redux';
 
-import { Unstable_Grid2 as Grid } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import LoaderGrid from './LoaderGrid';
+import { selectBookmarkData } from '../features/bookmark/bookmarkSlice';
+import CardsData from './CardsData';
+import bmbg from '../content/bmbg.svg';
+import TitleBlock from './TitleBlock';
 
-import {
-  changeCategory,
-  fetchCard,
-  selectCard,
-  selectCardIsLoading,
-} from "../features/card/cardSlice";
-import Card from "./Card";
-import LoaderGrid from "./LoaderGrid";
-import { selectBookmarkData, selectBookmarkIsLoading } from "../features/bookmark/bookmarkSlice";
+const emptyText = 'Еще нет ни одной закладки';
 
-const BookmarksPage = () => {
+function BookmarksPage() {
   const cards = useSelector(selectBookmarkData);
-  const isLoading = useSelector(selectBookmarkIsLoading);
-  const dispatch = useDispatch();
 
   return (
     <>
+      <TitleBlock title="Закладки" image={bmbg} color="white" />
       <Grid
         container
         rowSpacing={1}
         columnSpacing={2}
         // xs={10}
         sx={{
-          display: "flex",
-          alignItems: "start",
-          marginTop: "20px",
-          backgroundColor: "#F3F3F2",
-          borderRadius: "20px",
-          p: "20px",
-          minHeight: "100vh",
+          display: 'flex',
+          alignItems: 'start',
+          marginTop: '20px',
+          backgroundColor: '#F3F3F2',
+          borderRadius: '20px',
+          p: '1rem',
+          height: 'calc(100vh - 10rem)',
         }}
       >
-        {isLoading ? (
-          cards?.map((el, index) => {
-            return <Card key={index} data={el} />;
-          })
-        ) : (
-          <LoaderGrid />
-        )}
+        {<LoaderGrid /> && <CardsData cards={cards} emptyText={emptyText} />}
       </Grid>
     </>
   );
-};
+}
 
 export default BookmarksPage;

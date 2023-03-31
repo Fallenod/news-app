@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import CloseIcon from "@mui/icons-material/Close";
-import SearchIcon from "@mui/icons-material/Search";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import Drawer from "@mui/material/SwipeableDrawer";
-import styled from "@emotion/styled";
-import SearchField from "./SearchField";
+import CloseIcon from '@mui/icons-material/Close';
+import SearchIcon from '@mui/icons-material/Search';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Drawer from '@mui/material/SwipeableDrawer';
+import styled from '@emotion/styled';
+import SearchField from './SearchField';
 
 const DrawerSearch = styled(Drawer)`
   display: flex;
@@ -14,7 +14,7 @@ const DrawerSearch = styled(Drawer)`
 
 function SearchBar() {
   const [searchDrawer, setSearchDrawer] = useState(false);
-  const [searchUrl, setSearchUrl] = useState("");
+  const [searchUrl, setSearchUrl] = useState('');
   const toggleDrawer = (open) => (event) => {
     setSearchDrawer(open);
   };
@@ -30,8 +30,9 @@ function SearchBar() {
         aria-label="search"
         color="inherit"
         sx={{
-          "&:hover": {
-            color: "red",
+          color: 'white',
+          '&:hover': {
+            color: '#FFD76C',
           },
         }}
       >

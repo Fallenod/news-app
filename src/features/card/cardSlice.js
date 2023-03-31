@@ -1,44 +1,44 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: [],
-  status: "idle",
+  status: 'idle',
   isLoading: true,
-  country: "us",
-  category: "sport",
+  country: 'ru',
+  category: 'sports',
 };
 
 export const fetchCard = createAsyncThunk(
-  "card/fetchCard",
-  async function ( _,{ getState, rejectWithValue }) {
+  'card/fetchCard',
+  async (_, { getState, rejectWithValue }) => {
     try {
       const state = getState();
-      const country = state.card.country;
-      const category = state.card.category
+      const { country } = state.card;
+      const { category } = state.card;
       const response = await fetch(
-        `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=3aa3b50262034fe5b7ab7b8f4fea1a28`
+        `https://newsdata.io/api/1/news?apikey=pub_109336035266e254f5353692d2989719a4dfc&category=${category}&country=${country}`,
       );
-
+      // `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=3aa3b50262034fe5b7ab7b8f4fea1a28`
       if (!response.ok) {
-        throw new Error("Server Error!");
+        throw new Error('Server Error!');
       }
-      
+
       const data = await response.json();
-      let trtd = data[0]
-      console.log(trtd)
+      const trtd = data[0];
+      console.log(trtd);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 export const cardSlice = createSlice({
-  name: "card",
+  name: 'card',
   initialState,
   reducers: {
     reset: (state) => {
       state.data = [];
-      state.status = "reset";
+      state.status = 'reset';
     },
     changeCategory: (state, action) => {
       state.category = action.payload;
@@ -48,13 +48,13 @@ export const cardSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchCard.pending, (state) => {
-        state.status = "loading";
+        state.status = 'loading';
         state.isLoading = false;
       })
       .addCase(fetchCard.fulfilled, (state, action) => {
-        state.status = "idle";
+        state.status = 'idle';
         state.isLoading = true;
-        state.data = action.payload.articles;
+        state.data = action.payload.results;
       });
   },
 });

@@ -1,17 +1,11 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import GoogleIcon from "@mui/icons-material/Google";
-import LogoutIcon from "@mui/icons-material/Logout";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import { auth, db } from "../firebase";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import {
-  removeUser,
-  selectUserIsAuth,
-  setUser,
-} from "../features/user/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import GoogleIcon from '@mui/icons-material/Google';
+import LogoutIcon from '@mui/icons-material/Logout';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   addDoc,
   collection,
@@ -19,8 +13,17 @@ import {
   getDoc,
   setDoc,
   updateDoc,
-} from "firebase/firestore";
-import { selectBookmarkData, updateAllBookmarks } from "../features/bookmark/bookmarkSlice";
+} from 'firebase/firestore';
+import {
+  removeUser,
+  selectUserIsAuth,
+  setUser,
+} from '../features/user/userSlice';
+import { auth, db } from '../firebase';
+import {
+  selectBookmarkData,
+  updateAllBookmarks,
+} from '../features/bookmark/bookmarkSlice';
 
 function LoginBar() {
   const dispatch = useDispatch();
@@ -29,12 +32,12 @@ function LoginBar() {
   const handleAuth = async () => {
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
-    let bmData = bookmarkData;
+    const bmData = bookmarkData;
     const isAuth = true;
     const token = result.user.accessToken;
-    const email = result.user.email;
-    const uid = result.user.uid;
-    const docRef = doc(db, "users", result.user.uid);
+    const { email } = result.user;
+    const { uid } = result.user;
+    const docRef = doc(db, 'users', result.user.uid);
     const docData = await getDoc(docRef);
     console.log(docData);
     if (docData?.data()?.bookmarks) {
@@ -49,7 +52,9 @@ function LoginBar() {
       });
       dispatch(updateAllBookmarks(bmData));
     }
-    dispatch(setUser({ isAuth, email, token, uid }));
+    dispatch(setUser({
+      isAuth, email, token, uid,
+    }));
   };
   const handleLogout = () => {
     dispatch(removeUser());
@@ -64,8 +69,9 @@ function LoginBar() {
           aria-label="search"
           color="inherit"
           sx={{
-            "&:hover": {
-              color: "red",
+            color: 'white',
+            '&:hover': {
+              color: '#FFD76C',
             },
           }}
         >
@@ -78,8 +84,9 @@ function LoginBar() {
           aria-label="search"
           color="inherit"
           sx={{
-            "&:hover": {
-              color: "red",
+            color: 'white',
+            '&:hover': {
+              color: 'red',
             },
           }}
         >

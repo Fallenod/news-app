@@ -1,11 +1,11 @@
-import SearchIcon from "@mui/icons-material/Search";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import InputBase from "@mui/material/InputBase";
-import styled from "@emotion/styled";
+import SearchIcon from '@mui/icons-material/Search';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import InputBase from '@mui/material/InputBase';
+import styled from '@emotion/styled';
 
 const SearchInput = styled(InputBase)`
-  border-radius: 2rem;
+  border-radius: 20px;
   background-color: #222222;
   color: white;
   padding: 1rem 2rem;
@@ -47,7 +47,7 @@ function SearchField({ handleSubmit, searchUrl, setSearchUrl }) {
           onChange={(e) => setSearchUrl(e.target.value)}
         />
         <SearchButton type="submit" aria-label="search">
-          <SearchIcon style={{ fill: "white" }} />
+          <SearchIcon style={{ fill: 'white' }} />
         </SearchButton>
       </SearchInputContainer>
     </BoxInput>

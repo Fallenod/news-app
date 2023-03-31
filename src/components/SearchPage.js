@@ -1,10 +1,13 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { Unstable_Grid2 as Grid, Pagination, TextField, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import {
+  Unstable_Grid2 as Grid, Pagination, TextField, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio,
+} from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Card from "./Card";
-import LoaderGrid from "./LoaderGrid";
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import Card from './Card';
+import LoaderGrid from './LoaderGrid';
 import {
   changePage,
   changeValue,
@@ -16,12 +19,11 @@ import {
   selectSearchTotal,
   selectSearchTotalPage,
   selectSearchValue,
-} from "../features/search/searchSlice";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
-import SearchForm from "./SearchForm";
+} from '../features/search/searchSlice';
+import SearchForm from './SearchForm';
 
-const SearchPage = () => {
-  let [searchParams, setSearchParams] = useSearchParams();
+function SearchPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const cards = useSelector(selectSearch);
   const isLoading = useSelector(selectSearchIsLoading);
   const searchValue = useSelector(selectSearchValue);
@@ -31,8 +33,8 @@ const SearchPage = () => {
   const totalPage = useSelector(selectSearchTotalPage);
   const location = useLocation();
   const dispatch = useDispatch();
-  let value = searchParams.get("q");
-  let page = searchParams.get("page");
+  const value = searchParams.get('q');
+  const page = searchParams.get('page');
   useEffect(() => {
     page && dispatch(changePage(page));
   }, [dispatch]);
@@ -52,23 +54,21 @@ const SearchPage = () => {
 
   return (
     <Grid>
-      <SearchForm/>
+      <SearchForm />
       <Grid
         container
         spacing={2}
         sx={{
-          display: "flex",
-          alignItems: "center",
-          marginTop: "20px",
-          backgroundColor: "#F3F3F2",
-          borderRadius: "20px",
-          p: "1rem",
+          display: 'flex',
+          alignItems: 'center',
+          marginTop: '20px',
+          backgroundColor: '#F3F3F2',
+          borderRadius: '20px',
+          p: '1rem',
         }}
       >
         {isLoading ? (
-          cards?.map((el, index) => {
-            return <Card key={index} data={el} />;
-          })
+          cards?.map((el, index) => <Card key={index} data={el} />)
         ) : (
           <LoaderGrid />
         )}
@@ -76,13 +76,13 @@ const SearchPage = () => {
       {isLoading && (
         <Grid
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: "20px",
-            backgroundColor: "#F3F3F2",
-            borderRadius: "20px",
-            p: "1rem",
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: '20px',
+            backgroundColor: '#F3F3F2',
+            borderRadius: '20px',
+            p: '1rem',
           }}
           container
           spacing={2}
@@ -96,6 +96,6 @@ const SearchPage = () => {
       )}
     </Grid>
   );
-};
+}
 
 export default SearchPage;

@@ -1,14 +1,14 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import cardReducer from "../features/card/cardSlice";
-import topicReducer from "../features/topic/topicSlice";
-import searchReducer from "../features/search/searchSlice";
-import bookmarkReducer from "../features/bookmark/bookmarkSlice";
-import userReducer from "../features/user/userSlice";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import cardReducer from '../features/card/cardSlice';
+import topicReducer from '../features/topic/topicSlice';
+import searchReducer from '../features/search/searchSlice';
+import bookmarkReducer from '../features/bookmark/bookmarkSlice';
+import userReducer from '../features/user/userSlice';
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   version: 1,
   storage,
 };

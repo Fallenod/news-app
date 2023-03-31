@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useState } from 'react';
 import {
   Unstable_Grid2 as Grid,
   CardMedia,
@@ -9,19 +8,19 @@ import {
   Stack,
   Paper,
   Avatar,
-  IconButton,
   Checkbox,
-} from "@mui/material";
-import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import { styled } from "@mui/system";
-import { useDispatch, useSelector } from "react-redux";
+} from '@mui/material';
+import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
+import styled from '@emotion/styled';
+import { useDispatch } from 'react-redux';
 import {
   addBookmark,
   removeBookmark,
-} from "../features/bookmark/bookmarkSlice";
+} from '../features/bookmark/bookmarkSlice';
 
-const placeholderImg =
-  "https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png";
+import formatTime from '../utils/formatTime';
+
+const placeholderImg = 'https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png';
 
 const CardTitle = styled(Typography)`
   overflow: hidden;
@@ -57,10 +56,21 @@ const Content = styled(CardContent)`
     padding-bottom: 18px;
   }
 `;
+const CardTextContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: .5rem;
+`;
+const CardText = styled.div`
+  font-size: 14px;
+  color: #8f9fa7;
+`;
 
-const Card = ({ data }) => {
+function Card({ data }) {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
+  const publishedDate = formatTime(data?.pubDate);
+  const url = new URL(data?.link);
 
   const handleClick = (e) => {};
   const handleChange = (e) => {
@@ -76,50 +86,49 @@ const Card = ({ data }) => {
       <Paper
         elevation={0}
         sx={{
-          backgroundColor: "grey",
-          borderRadius: "12px",
-          boxSizing: "border-box",
+          backgroundColor: 'grey',
+          borderRadius: '12px',
+          boxSizing: 'border-box',
+          cursor: 'pointer',
         }}
       >
         <Link
-          sx={{ display: "flex", height: "100%" }}
-          // href={data.url}
+          sx={{ display: 'flex', height: '100%' }}
+          href={data?.link}
           underline="none"
           target="_blank"
           onClick={(e) => handleClick(e)}
         >
           <Content>
             <CardTitle gutterBottom variant="h6" component="div">
-              {data.title}
+              {data?.title}
             </CardTitle>
             <CardSubTitle gutterBottom variant="subtitle1" component="div">
-              {data.description}
+              {data?.description}
             </CardSubTitle>
             <CardMedia
               component="img"
-              alt={data.title}
+              alt={data?.title}
               height="200px"
-              image={data?.urlToImage ?? placeholderImg}
-              sx={{ borderRadius: "12px", maxWidth: "100%", maxHeight: "100%" }}
+              image={data?.image_url ?? placeholderImg}
+              sx={{ borderRadius: '12px', maxWidth: '100%', maxHeight: '100%' }}
               loading="lazy"
             />
             <Stack
               direction="row"
-              justifyContent="start"
+              justifyContent="space-between"
               alignItems="center"
               spacing={1}
             >
-              <Avatar
-                sx={{ width: 16, height: 16 }}
-                alt="Natacha"
-                src={`https://${data.source.name}/favicon.ico`}
-              />
-              <div style={{ fontSize: "14px", color: "#8F9FA7" }}>
-                {data.source.name}
-              </div>
-              <div style={{ fontSize: "14px", color: "#8F9FA7" }}>{`${new Date(
-                data.publishedAt
-              ).getHours()}:${new Date(data.publishedAt).getMinutes()}`}</div>
+              <CardTextContainer>
+                <Avatar
+                  sx={{ width: 16, height: 16 }}
+                  alt="Natacha"
+                  src={`https://www.google.com/s2/favicons?domain=${url?.host}&sz=32`}
+                />
+                <CardText>{data?.source_id}</CardText>
+                <CardText>{publishedDate}</CardText>
+              </CardTextContainer>
               <Checkbox
                 icon={<BookmarkAddIcon color="disabled" />}
                 checkedIcon={<BookmarkAddIcon color="error" />}
@@ -132,6 +141,6 @@ const Card = ({ data }) => {
       </Paper>
     </Grid>
   );
-};
+}
 
 export default Card;

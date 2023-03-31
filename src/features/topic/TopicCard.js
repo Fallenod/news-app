@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 
 import {
   Unstable_Grid2 as Grid,
@@ -9,11 +9,16 @@ import {
   Stack,
   Paper,
   Avatar,
-} from "@mui/material";
-import { styled } from "@mui/system";
+  Checkbox,
+} from '@mui/material';
+import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
+import styled from '@emotion/styled';
+import { useDispatch } from 'react-redux';
+import { addBookmark, removeBookmark } from '../bookmark/bookmarkSlice';
 
-const placeholderImg =
-  "https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png";
+import formatTime from '../../utils/formatTime';
+
+const placeholderImg = 'https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png';
 
 const CardTitle = styled(Typography)`
   overflow: hidden;
@@ -48,21 +53,42 @@ const Content = styled(CardContent)`
     padding-bottom: 18px;
   }
 `;
+const CardTextContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+`;
+const CardText = styled.div`
+  font-size: 14px;
+  color: #8f9fa7;
+`;
 
-const TopicCard = (prop) => {
-  const { data } = prop;
+function TopicCard({ data }) {
+  const dispatch = useDispatch();
+  const [checked, setChecked] = useState(false);
+  const publishedDate = formatTime(data.publishedAt);
+  const url = new URL(data.url);
+  const handleChange = (e) => {
+    if (!checked) {
+      dispatch(addBookmark(data));
+    } else {
+      dispatch(removeBookmark(data));
+    }
+    setChecked(!checked);
+  };
   return (
-    <Grid xs={12} sm ={6} item>
+    <Grid xs={12} sm={6} item>
       <Paper
         sx={{
-          backgroundColor: "grey",
-          borderRadius: "12px",
-          height: "100%",
-          boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
+          backgroundColor: 'grey',
+          borderRadius: '12px',
+          height: '100%',
+          boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
         }}
       >
         <Link
-          sx={{ display: "flex", height: "100%" }}
+          sx={{ display: 'flex', height: '100%' }}
           href={data.url}
           underline="none"
           target="_blank"
@@ -85,9 +111,9 @@ const TopicCard = (prop) => {
                   width="86px"
                   image={data?.urlToImage ?? placeholderImg}
                   sx={{
-                    borderRadius: "12px",
-                    maxWidth: "100%",
-                    maxHeight: "100%",
+                    borderRadius: '12px',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
                   }}
                   loading="lazy"
                 />
@@ -96,27 +122,31 @@ const TopicCard = (prop) => {
 
             <Stack
               direction="row"
-              justifyContent="start"
+              justifyContent="space-between"
               alignItems="center"
               spacing={1}
             >
-              <Avatar
-                sx={{ width: 16, height: 16 }}
-                alt="Natacha"
-                src={`https://${data.source.name}/favicon.ico`}
+              <CardTextContainer>
+                <Avatar
+                  sx={{ width: 16, height: 16 }}
+                  alt="Natacha"
+                  src={`https://www.google.com/s2/favicons?domain=${url.host}&sz=32`}
+                />
+                <CardText>{data.source.name}</CardText>
+                <CardText>{publishedDate}</CardText>
+              </CardTextContainer>
+              <Checkbox
+                icon={<BookmarkAddIcon color="disabled" />}
+                checkedIcon={<BookmarkAddIcon color="error" />}
+                checked={checked}
+                onChange={handleChange}
               />
-              <div style={{ fontSize: "14px", color: "#8F9FA7" }}>
-                {data.source.name}
-              </div>
-              <div style={{ fontSize: "14px", color: "#8F9FA7" }}>{`${new Date(
-                data.publishedAt
-              ).getHours()}:${new Date(data.publishedAt).getMinutes()}`}</div>
             </Stack>
           </Content>
         </Link>
       </Paper>
     </Grid>
   );
-};
+}
 
 export default TopicCard;

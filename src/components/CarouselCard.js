@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 import {
   Unstable_Grid2 as Grid,
@@ -11,17 +11,16 @@ import {
   Avatar,
   IconButton,
   Checkbox,
-} from "@mui/material";
-import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import { styled } from "@mui/system";
-import { useDispatch, useSelector } from "react-redux";
+} from '@mui/material';
+import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
+import { styled } from '@mui/system';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   addBookmark,
   removeBookmark,
-} from "../features/bookmark/bookmarkSlice";
+} from '../features/bookmark/bookmarkSlice';
 
-const placeholderImg =
-  "https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png";
+const placeholderImg = 'https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png';
 
 const CardTitle = styled(Typography)`
   overflow: hidden;
@@ -58,7 +57,7 @@ const Content = styled(CardContent)`
   }
 `;
 
-const CarouselCard = ({ data }) => {
+function CarouselCard({ data }) {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
 
@@ -76,16 +75,16 @@ const CarouselCard = ({ data }) => {
       <Paper
         elevation={2}
         sx={{
-          position: "relative",
-          backgroundColor: "transparent",
-          boxSizing: "border-box",
-          height: "500px",
-          maxWidth: "100%",
-          maxHeight: "100%",
+          position: 'relative',
+          backgroundColor: 'transparent',
+          boxSizing: 'border-box',
+          height: '500px',
+          maxWidth: '100%',
+          maxHeight: '100%',
           background: `url(${data?.urlToImage ?? placeholderImg})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
       >
         {/* <CardMedia
@@ -98,11 +97,11 @@ const CarouselCard = ({ data }) => {
         /> */}
         <Content
           sx={{
-            display: "flex",
-            flexDirection: "column",
+            display: 'flex',
+            flexDirection: 'column',
             p: 0,
             background:
-              "linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent)",
+              'linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent)',
           }}
         >
           <CardTitle gutterBottom variant="h6" component="div">
@@ -123,12 +122,14 @@ const CarouselCard = ({ data }) => {
               alt="Natacha"
               src={`https://${data.source.name}/favicon.ico`}
             />
-            <div style={{ fontSize: "14px", color: "#8F9FA7" }}>
+            <div style={{ fontSize: '14px', color: '#8F9FA7' }}>
               {data.source.name}
             </div>
-            <div style={{ fontSize: "14px", color: "#8F9FA7" }}>{`${new Date(
-              data.publishedAt
-            ).getHours()}:${new Date(data.publishedAt).getMinutes()}`}</div>
+            <div style={{ fontSize: '14px', color: '#8F9FA7' }}>
+              {`${new Date(
+                data.publishedAt,
+              ).getHours()}:${new Date(data.publishedAt).getMinutes()}`}
+            </div>
             <Checkbox
               icon={<BookmarkAddIcon color="disabled" />}
               checkedIcon={<BookmarkAddIcon color="error" />}
@@ -140,6 +141,6 @@ const CarouselCard = ({ data }) => {
       </Paper>
     </Grid>
   );
-};
+}
 
 export default CarouselCard;

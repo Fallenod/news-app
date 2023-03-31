@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import { IconButton, styled } from "@mui/material";
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import { IconButton, styled } from '@mui/material';
 
 const ArrowButton = styled(IconButton)`
   position: fixed;
@@ -14,10 +14,10 @@ const ArrowButton = styled(IconButton)`
   z-index: 20;
 `;
 
-const ScrollToTopButton = () => {
+function ScrollToTopButton() {
   const [showTopBtn, setShowTopBtn] = useState(false);
   useEffect(() => {
-    window.addEventListener("scroll", () => {
+    window.addEventListener('scroll', () => {
       if (window.scrollY > 400) {
         setShowTopBtn(true);
       } else {
@@ -28,12 +28,12 @@ const ScrollToTopButton = () => {
   const goToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   };
   return (
     <>
-      {" "}
+      {' '}
       {showTopBtn && (
         // <FaAngleUp
         //     className="icon-position icon-style"
@@ -42,8 +42,9 @@ const ScrollToTopButton = () => {
         <ArrowButton onClick={goToTop}>
           <ArrowUpwardIcon />
         </ArrowButton>
-      )}{" "}
+      )}
+      {' '}
     </>
   );
-};
+}
 export default ScrollToTopButton;
