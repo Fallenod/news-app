@@ -4,15 +4,19 @@ const initialState = {
   data: [],
   status: 'idle',
   isLoading: true,
+  country: 'ru',
+  category: 'sports',
 };
 
 export const fetchTopic = createAsyncThunk(
   'topic/fetchTopic',
-  async (category, { rejectWithValue }) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
-      category = `category=${category}`;
+      const state = getState();
+      const { country } = state.card;
+      const { category } = state.card;
       const response = await fetch(
-        `https://newsapi.org/v2/top-headlines?country=us&${category}&pageSize=5&apiKey=9576b06dbba14f2f94f52fbe6a0140ce`,
+        `https://newsdata.io/api/1/news?apikey=pub_109336035266e254f5353692d2989719a4dfc&category=${category}&country=${country}`,
       );
 
       if (!response.ok) {
@@ -44,7 +48,7 @@ export const topicSlice = createSlice({
       .addCase(fetchTopic.fulfilled, (state, action) => {
         state.status = 'idle';
         state.isLoading = true;
-        state.data = action.payload.articles;
+        state.data = action.payload.results;
       });
   },
 });

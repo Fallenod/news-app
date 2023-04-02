@@ -18,14 +18,11 @@ export const fetchCard = createAsyncThunk(
       const response = await fetch(
         `https://newsdata.io/api/1/news?apikey=pub_109336035266e254f5353692d2989719a4dfc&category=${category}&country=${country}`,
       );
-      // `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=3aa3b50262034fe5b7ab7b8f4fea1a28`
       if (!response.ok) {
         throw new Error('Server Error!');
       }
 
       const data = await response.json();
-      const trtd = data[0];
-      console.log(trtd);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);

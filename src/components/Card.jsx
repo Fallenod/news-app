@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import PropTypes from 'prop-types';
 import {
   Unstable_Grid2 as Grid,
   CardMedia,
@@ -14,9 +14,12 @@ import {
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import styled from '@emotion/styled';
 import { useDispatch } from 'react-redux';
-import { addBookmark, removeBookmark } from '../bookmark/bookmarkSlice';
+import {
+  addBookmark,
+  removeBookmark,
+} from '../features/bookmark/bookmarkSlice';
 
-import formatTime from '../../utils/formatTime';
+import formatTime from '../utils/formatTime';
 
 const placeholderImg = 'https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png';
 
@@ -57,7 +60,6 @@ const Content = styled(CardContent)`
 const CardTextContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
   gap: .5rem;
 `;
 const CardText = styled.div`
@@ -65,12 +67,13 @@ const CardText = styled.div`
   color: #8f9fa7;
 `;
 
-function TopTopicCard({ data }) {
+function Card({ data }) {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
-  const publishedDate = formatTime(data.publishedAt);
-  const url = new URL(data.url);
-  const handleChange = (e) => {
+  const publishedDate = formatTime(data?.pubDate);
+  const url = new URL(data?.link);
+
+  const handleChange = () => {
     if (!checked) {
       dispatch(addBookmark(data));
     } else {
@@ -79,33 +82,34 @@ function TopTopicCard({ data }) {
     setChecked(!checked);
   };
   return (
-    <Grid item xs>
+    <Grid item xs={12} sm={6} md={4}>
       <Paper
+        elevation={0}
         sx={{
-          backgroundColor: 'grey',
+          backgroundColor: 'white',
           borderRadius: '12px',
-          boxSizing: 'border-box',
           boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
+          cursor: 'pointer',
         }}
       >
         <Link
-          sx={{ display: 'flex' }}
-          href={data.url}
+          sx={{ display: 'flex', height: '100%' }}
+          href={data?.link}
           underline="none"
           target="_blank"
         >
           <Content>
             <CardTitle gutterBottom variant="h6" component="div">
-              {data.title}
+              {data?.title}
             </CardTitle>
             <CardSubTitle gutterBottom variant="subtitle1" component="div">
-              {data.description}
+              {data?.description}
             </CardSubTitle>
             <CardMedia
               component="img"
-              alt={data.title}
+              alt={data?.title}
               height="200px"
-              image={data?.urlToImage ?? placeholderImg}
+              image={data?.image_url ?? placeholderImg}
               sx={{ borderRadius: '12px', maxWidth: '100%', maxHeight: '100%' }}
               loading="lazy"
             />
@@ -118,10 +122,10 @@ function TopTopicCard({ data }) {
               <CardTextContainer>
                 <Avatar
                   sx={{ width: 16, height: 16 }}
-                  alt="Natacha"
-                  src={`https://www.google.com/s2/favicons?domain=${url.host}&sz=32`}
+                  alt="source_logo"
+                  src={`https://www.google.com/s2/favicons?domain=${url?.host ?? 'google.com'}&sz=32`}
                 />
-                <CardText>{data.source.name}</CardText>
+                <CardText>{data?.source_id}</CardText>
                 <CardText>{publishedDate}</CardText>
               </CardTextContainer>
               <Checkbox
@@ -137,5 +141,17 @@ function TopTopicCard({ data }) {
     </Grid>
   );
 }
-
-export default TopTopicCard;
+Card.defaultProps = {
+  data: [],
+};
+Card.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({
+    pubDate: PropTypes.string,
+    link: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    image_url: PropTypes.string,
+    source_id: PropTypes.string,
+  })),
+};
+export default Card;

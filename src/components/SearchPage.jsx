@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import {
-  Unstable_Grid2 as Grid, Pagination, TextField, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio,
+  Unstable_Grid2 as Grid, Pagination
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import Card from './Card';
 import LoaderGrid from './LoaderGrid';
 import {
@@ -15,20 +15,16 @@ import {
   selectSearch,
   selectSearchIsLoading,
   selectSearchPage,
-  selectSearchPageSize,
-  selectSearchTotal,
   selectSearchTotalPage,
   selectSearchValue,
 } from '../features/search/searchSlice';
 import SearchForm from './SearchForm';
 
 function SearchPage() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const cards = useSelector(selectSearch);
   const isLoading = useSelector(selectSearchIsLoading);
   const searchValue = useSelector(selectSearchValue);
-  const searchPageSize = useSelector(selectSearchPageSize);
-  const searchTotal = useSelector(selectSearchTotal);
   const defaultPage = useSelector(selectSearchPage);
   const totalPage = useSelector(selectSearchTotalPage);
   const location = useLocation();
@@ -36,20 +32,23 @@ function SearchPage() {
   const value = searchParams.get('q');
   const page = searchParams.get('page');
   useEffect(() => {
-    page && dispatch(changePage(page));
+    if (page) {
+      dispatch(changePage(page));
+    }
   }, [dispatch]);
 
   useEffect(() => {
-    value && dispatch(changeValue(value));
+    if (value) {
+      dispatch(changeValue(value));
+    }
   }, [cards, dispatch]);
 
   useEffect(() => {
     dispatch(fetchSearch());
   }, [searchValue, defaultPage, location]);
 
-  const handleChange = (event, value) => {
+  const handleChange = () => {
     dispatch(changePage(value));
-    console.log(value);
   };
 
   return (
@@ -68,6 +67,7 @@ function SearchPage() {
         }}
       >
         {isLoading ? (
+          // eslint-disable-next-line react/no-array-index-key
           cards?.map((el, index) => <Card key={index} data={el} />)
         ) : (
           <LoaderGrid />

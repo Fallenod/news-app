@@ -1,6 +1,8 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Typography, Unstable_Grid2 as Grid } from '@mui/material';
 
-function TitleBlock({ title = 'Title', image, color = '#222123' }) {
+function TitleBlock({ title, image, color }) {
   return (
     <Grid
       container
@@ -31,5 +33,14 @@ function TitleBlock({ title = 'Title', image, color = '#222123' }) {
     </Grid>
   );
 }
-
+TitleBlock.defaultProps = {
+  title: 'Title',
+  image: '',
+  color: '#222123',
+}
+TitleBlock.propTypes = {
+  title: PropTypes.string,
+  image: PropTypes.string,
+  color: PropTypes.string,
+};
 export default TitleBlock;

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: [],
@@ -18,11 +18,11 @@ export const bookmarkSlice = createSlice({
     },
     addBookmark: (state, action) => {
       const itemInCart = state.data.find(
-        (item) => item.title == action.payload.title,
+        (item) => item.title === action.payload.title,
       );
       if (!itemInCart) {
         state.data.push(action.payload);
-        state.count++;
+        state.count+= 1;
         state.isLoading = true;
       }
     },
@@ -37,14 +37,6 @@ export const bookmarkSlice = createSlice({
       state.data = action.payload;
       state.count = action.payload.length;
     },
-    // hasBookmark: (state, action) => {
-    //   const itemInCart = state.data.find(
-    //     (item) => item.title == action.payload.title
-    //   );
-    //   if (!itemInCart) {
-    //     state.hasInBookmark = true;
-    //   }
-    // },
   },
 });
 

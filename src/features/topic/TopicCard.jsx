@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import PropTypes from 'prop-types';
 import {
   Unstable_Grid2 as Grid,
   CardMedia,
@@ -8,8 +8,8 @@ import {
   Link,
   Stack,
   Paper,
-  Avatar,
   Checkbox,
+  Avatar,
 } from '@mui/material';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import styled from '@emotion/styled';
@@ -67,9 +67,9 @@ const CardText = styled.div`
 function TopicCard({ data }) {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
-  const publishedDate = formatTime(data.publishedAt);
-  const url = new URL(data.url);
-  const handleChange = (e) => {
+  const publishedDate = formatTime(data.pubDate);
+  const url = new URL(data?.link);
+  const handleChange = () => {
     if (!checked) {
       dispatch(addBookmark(data));
     } else {
@@ -81,15 +81,16 @@ function TopicCard({ data }) {
     <Grid xs={12} sm={6} item>
       <Paper
         sx={{
-          backgroundColor: 'grey',
+          backgroundColor: 'white',
           borderRadius: '12px',
           height: '100%',
           boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
+          cursor: 'pointer',
         }}
       >
         <Link
           sx={{ display: 'flex', height: '100%' }}
-          href={data.url}
+          href={data.link}
           underline="none"
           target="_blank"
         >
@@ -97,10 +98,10 @@ function TopicCard({ data }) {
             <Grid container direction="row">
               <Grid item xs={8}>
                 <CardTitle gutterBottom variant="subtitle1" component="div">
-                  {data.title}
+                  {data?.title}
                 </CardTitle>
                 <CardSubTitle gutterBottom variant="subtitle2" component="div">
-                  {data.title}
+                  {data?.title}
                 </CardSubTitle>
               </Grid>
               <Grid item xs={4}>
@@ -109,7 +110,7 @@ function TopicCard({ data }) {
                   alt={data.title}
                   height="86px"
                   width="86px"
-                  image={data?.urlToImage ?? placeholderImg}
+                  image={data?.image_url ?? placeholderImg}
                   sx={{
                     borderRadius: '12px',
                     maxWidth: '100%',
@@ -129,10 +130,10 @@ function TopicCard({ data }) {
               <CardTextContainer>
                 <Avatar
                   sx={{ width: 16, height: 16 }}
-                  alt="Natacha"
-                  src={`https://www.google.com/s2/favicons?domain=${url.host}&sz=32`}
+                  alt="source_logo"
+                  src={`https://www.google.com/s2/favicons?domain=${url?.host ?? 'google.com'}&sz=32`}
                 />
-                <CardText>{data.source.name}</CardText>
+                <CardText>{data?.source_id}</CardText>
                 <CardText>{publishedDate}</CardText>
               </CardTextContainer>
               <Checkbox
@@ -148,5 +149,17 @@ function TopicCard({ data }) {
     </Grid>
   );
 }
-
+TopicCard.defaultProps = {
+  data: [],
+};
+TopicCard.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({
+    pubDate: PropTypes.string,
+    link: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    image_url: PropTypes.string,
+    source_id: PropTypes.string,
+  })),
+};
 export default TopicCard;

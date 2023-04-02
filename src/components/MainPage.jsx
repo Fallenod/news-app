@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
+import  PropTypes  from 'prop-types';
 import { Unstable_Grid2 as Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,7 +10,6 @@ import {
   selectCard,
   selectCardIsLoading,
 } from '../features/card/cardSlice';
-import Card from './Card';
 import LoaderGrid from './LoaderGrid';
 import TitleBlock from './TitleBlock';
 import CardsData from './CardsData';
@@ -45,10 +45,19 @@ function MainPage({ data }) {
           minHeight: 'calc(100vh - 10rem)',
         }}
       >
-        { isLoading ? <CardsData cards={cards} emptyText={emptyText} /> : <LoaderGrid />}
+        {isLoading ? <CardsData cards={cards} emptyText={emptyText} /> : <LoaderGrid />}
       </Grid>
     </>
   );
 }
-
+MainPage.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({
+    pubDate: PropTypes.string,
+    link: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    image_url: PropTypes.string,
+    source_id: PropTypes.string,
+  })).isRequired,
+};
 export default MainPage;

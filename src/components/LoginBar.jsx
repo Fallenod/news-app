@@ -1,18 +1,14 @@
-import { useState } from 'react';
+import React from 'react';
 
 import GoogleIcon from '@mui/icons-material/Google';
 import LogoutIcon from '@mui/icons-material/Logout';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
+import { Box, IconButton } from '@mui/material';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  addDoc,
-  collection,
   doc,
   getDoc,
   setDoc,
-  updateDoc,
 } from 'firebase/firestore';
 import {
   removeUser,
@@ -33,13 +29,11 @@ function LoginBar() {
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
     const bmData = bookmarkData;
-    const isAuth = true;
     const token = result.user.accessToken;
     const { email } = result.user;
     const { uid } = result.user;
     const docRef = doc(db, 'users', result.user.uid);
     const docData = await getDoc(docRef);
-    console.log(docData);
     if (docData?.data()?.bookmarks) {
       const updatedData = bmData.concat(docData?.data()?.bookmarks);
       setDoc(docRef, {
@@ -52,9 +46,13 @@ function LoginBar() {
       });
       dispatch(updateAllBookmarks(bmData));
     }
-    dispatch(setUser({
-      isAuth, email, token, uid,
-    }));
+    const userData = {
+      isAuth: true,
+      email,
+      token,
+      uid,
+    }
+    dispatch(setUser(userData));
   };
   const handleLogout = () => {
     dispatch(removeUser());

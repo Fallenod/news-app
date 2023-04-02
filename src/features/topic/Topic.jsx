@@ -1,11 +1,11 @@
+import React from 'react';
 import {
-  IconButton,
   Paper,
-  Stack,
   Typography,
   Unstable_Grid2 as Grid,
+  styled
 } from '@mui/material';
-import { styled } from '@mui/system';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import TopicCard from './TopicCard';
 import TopTopicCard from './TopTopicCard';
@@ -27,7 +27,11 @@ const TitleContainer = styled(Link)`
   gap: 1rem;
   cursor: pointer;
 `;
-
+const TopicPaper = styled(Paper)`
+  background-color:  ${props => props.color || "inherit"};
+  border-radius: 30px;
+  padding: 50px;
+`;
 function Topic({
   name, url, color, icon, data,
 }) {
@@ -38,7 +42,7 @@ function Topic({
       spacing={0}
       xs={12}
     >
-      <Paper sx={{ backgroundColor: `${color}`, borderRadius: '30px', p: '50px' }}>
+      <TopicPaper color={color}>
         <Grid
           sx={{
             paddingBottom: '1rem',
@@ -76,16 +80,36 @@ function Topic({
             container
             alignItems="stretch"
           >
-            {data.map((el, index) => {
-              if (index > 0) {
-                return <TopicCard key={index} data={el} />;
-              }
-            })}
+            {data.map((el, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              (index > 0) && <TopicCard key={index} data={el} />
+            )
+            )}
           </Grid>
         </Grid>
-      </Paper>
+      </TopicPaper>
     </Grid>
   );
 }
-
+Topic.defaultProps = {
+  data: [],
+  name: '',
+  url: '',
+  color: '',
+  icon: '',
+};
+Topic.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({
+    pubDate: PropTypes.string,
+    link: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    image_url: PropTypes.string,
+    source_id: PropTypes.string,
+  })),
+  name: PropTypes.string,
+  url: PropTypes.string,
+  color: PropTypes.string,
+  icon: PropTypes.string,
+};
 export default Topic;

@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -15,7 +14,7 @@ const DrawerSearch = styled(Drawer)`
 function SearchBar() {
   const [searchDrawer, setSearchDrawer] = useState(false);
   const [searchUrl, setSearchUrl] = useState('');
-  const toggleDrawer = (open) => (event) => {
+  const toggleDrawer = (open) => () => {
     setSearchDrawer(open);
   };
   const handleSubmit = (e) => {

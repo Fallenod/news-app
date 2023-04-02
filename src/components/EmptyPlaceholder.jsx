@@ -1,18 +1,24 @@
-import { Paper, Typography } from '@mui/material';
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import { Stack } from '@mui/system';
+import React from 'react';
+
+import PropTypes from 'prop-types';
+import styled from '@emotion/styled';
+import { Unstable_Grid2 as Grid, Paper, Typography } from '@mui/material';
 import logo from '../content/emptyLogo.png';
 
-function EmptyPlaceholder({ emptyText = 'Нет данных' }) {
+const PlaceholderImage = styled.img`
+  user-select: none;
+`;
+
+function EmptyPlaceholder({ emptyText }) {
   return (
-    <Grid2
+    <Grid
       container
       xs={12}
       sx={{ height: '100%' }}
       alignItems="center"
       justifyContent="center"
     >
-      <Grid2
+      <Grid
         alignItems="center"
         justifyContent="center"
         item
@@ -25,13 +31,18 @@ function EmptyPlaceholder({ emptyText = 'Нет данных' }) {
           }}
         >
           <Paper elevation={0} sx={{ backgroundColor: 'transparent' }}>
-            <img draggable="false" sx={{ userSelect: 'none' }} src={logo} />
+            <PlaceholderImage draggable="false" src={logo} alt="" />
           </Paper>
           <Typography variant="subtitle1" component="p" sx={{ fontFamily: 'Comfortaa', userSelect: 'none' }}>{emptyText}</Typography>
         </Paper>
-      </Grid2>
-    </Grid2>
+      </Grid>
+    </Grid>
   );
 }
-
+EmptyPlaceholder.defaultProps = {
+  emptyText: 'Нет данных',
+}
+EmptyPlaceholder.propTypes = {
+  emptyText: PropTypes.string,
+};
 export default EmptyPlaceholder;

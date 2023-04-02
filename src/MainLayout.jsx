@@ -1,8 +1,8 @@
+import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Container, CssBaseline, Typography } from '@mui/material';
 import { doc, setDoc } from 'firebase/firestore';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { db } from './firebase';

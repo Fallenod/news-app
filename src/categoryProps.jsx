@@ -1,3 +1,4 @@
+import React from 'react';
 import PaidIcon from '@mui/icons-material/Paid';
 import StarsIcon from '@mui/icons-material/Stars';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';

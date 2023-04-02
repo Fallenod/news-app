@@ -1,4 +1,6 @@
-import { Typography, Unstable_Grid2 as Grid } from '@mui/material';
+import React from 'react';
+
+import { Unstable_Grid2 as Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 import LoaderGrid from './LoaderGrid';
@@ -19,7 +21,6 @@ function BookmarksPage() {
         container
         rowSpacing={1}
         columnSpacing={2}
-        // xs={10}
         sx={{
           display: 'flex',
           alignItems: 'start',

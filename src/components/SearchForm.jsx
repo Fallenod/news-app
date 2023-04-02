@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Unstable_Grid2 as Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import SearchField from './SearchField';

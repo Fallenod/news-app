@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import AppBar from '@mui/material/AppBar';
@@ -18,11 +18,7 @@ import { selectBookmark } from '../features/bookmark/bookmarkSlice';
 import LoginBar from './LoginBar';
 
 function Header() {
-  const [anchorElNav, setAnchorElNav] = useState(null);
   const countBookmarks = useSelector(selectBookmark);
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
 
   return (
     <AppBar color="transparent" position="static" elevation={0}>

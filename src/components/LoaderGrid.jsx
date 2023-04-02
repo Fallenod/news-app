@@ -12,7 +12,7 @@ function LoaderGrid() {
           <Paper
             elevation={0}
             sx={{
-              backgroundColor: 'grey',
+              backgroundColor: 'white',
               borderRadius: '12px',
               boxSizing: 'border-box',
               padding: '18px',

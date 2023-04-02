@@ -1,3 +1,6 @@
+import React from 'react';
+
+import PropTypes from 'prop-types';
 import SearchIcon from '@mui/icons-material/Search';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -53,5 +56,14 @@ function SearchField({ handleSubmit, searchUrl, setSearchUrl }) {
     </BoxInput>
   );
 }
-
+SearchField.defaultProps = {
+  handleSubmit: () => {},
+  searchUrl: "",
+  setSearchUrl: () => {},
+}
+SearchField.propTypes = {
+  handleSubmit: PropTypes.func,
+  searchUrl: PropTypes.string,
+  setSearchUrl: PropTypes.func,
+};
 export default SearchField;

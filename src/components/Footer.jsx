@@ -1,13 +1,11 @@
+import React from 'react';
+
 import {
   Box,
   Button,
   Container,
-  Divider,
   IconButton,
-  Link,
-  TextField,
   Typography,
-  Unstable_Grid2 as Grid,
 } from '@mui/material';
 import logo from '../content/logo.png';
 import categoryProps from '../categoryProps';
@@ -71,14 +69,13 @@ function Footer() {
               </Button>
             ))}
           </Box>
-          {/* <Divider color="white" orientation="vertical" flexItem/> */}
           <Typography
             component="p"
             variant="caption"
             gutterBottom={false}
             color="white"
           >
-            '© 2023 React Новости'
+            © 2023 React Новости
           </Typography>
         </Box>
       </Container>
